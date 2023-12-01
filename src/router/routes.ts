@@ -1,8 +1,9 @@
-import Accounts from "../pages/private/Accounts";
+import ListAccounts from "../pages/private/Account/List";
 import Dashboard from "../pages/private/Dashboard";
-import Envelopes from "../pages/private/Envelopes";
-import Labels from "../pages/private/Labels";
-import Transactions from "../pages/private/Transactions";
+import CreateEnvelope from "../pages/private/Envelope/Create";
+import ListEnvelopes from "../pages/private/Envelope/List";
+import ListLabels from "../pages/private/Label/List";
+import ListTransactions from "../pages/private/Transaction/List";
 import Home from "../pages/public/Home";
 import SignIn from "../pages/public/SignIn";
 import SignUp from "../pages/public/SignUp";
@@ -24,23 +25,28 @@ export const PublicRoutes = {
 
 export const PrivateRoutes = {
     accounts: {
-        path: "/accounts",
-        component: Accounts,
+        path: "/account",
+        component: ListAccounts,
     },
     dashboard: {
         path: "/dashboard",
         component: Dashboard,
     },
-    envelopes: {
-        path: "/envelopes",
-        component: Envelopes,
+    envelope: {
+        path: "/envelope",
+        component: ListEnvelopes,
     },
-    labels: {
-        path: "/labels",
-        component: Labels,
+    "envelope/create": {
+        path: "/envelope/create",
+        component: CreateEnvelope,
+        index: false,
     },
-    transactions: {
-        path: "/transactions",
-        component: Transactions,
+    label: {
+        path: "/label",
+        component: ListLabels,
+    },
+    transaction: {
+        path: "/transaction",
+        component: ListTransactions,
     },
 };

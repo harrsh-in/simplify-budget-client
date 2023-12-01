@@ -7,7 +7,6 @@ import {
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
-import { BrowserRouter } from "react-router-dom";
 
 const theme: ThemeOptions = createTheme({
     typography: {
@@ -24,11 +23,9 @@ const theme: ThemeOptions = createTheme({
 });
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-    <BrowserRouter>
-        <ThemeProvider theme={theme}>
-            <CssBaseline />
+    <ThemeProvider theme={theme}>
+        <CssBaseline />
 
-            <App />
-        </ThemeProvider>
-    </BrowserRouter>
+        <App />
+    </ThemeProvider>
 );

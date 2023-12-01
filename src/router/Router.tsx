@@ -1,47 +1,34 @@
-import { Route, Routes } from "react-router-dom";
-import PageNotFound from "../pages/PageNotFound";
+import { createBrowserRouter } from "react-router-dom";
 import PrivateRouter from "./PrivateRouter";
 import PublicRouter from "./PublicRouter";
 import { PrivateRoutes, PublicRoutes } from "./routes";
+import { get } from "lodash";
+import Error from "../pages/Error";
 
-const Router = () => {
-    return (
-        <Routes>
-            <Route element={<PublicRouter />}>
-                {Object.entries(PublicRoutes).map(([key, el]) => {
-                    return (
-                        <Route
-                            key={key}
-                            path={el.path}
-                            element={<el.component />}
-                        />
-                    );
-                })}
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <PublicRouter />,
+        children: Object.entries(PublicRoutes).map(([, el]) => {
+            return {
+                path: el.path,
+                Component: el.component,
+            };
+        }),
+        errorElement: <Error />,
+    },
+    {
+        path: "/",
+        element: <PrivateRouter />,
+        children: Object.entries(PrivateRoutes).map(([, el]) => {
+            return {
+                path: el.path,
+                Component: el.component,
+                index: get(el, "status", false),
+            };
+        }),
+        errorElement: <Error />,
+    },
+]);
 
-                <Route
-                    path="*"
-                    element={<PageNotFound />}
-                />
-            </Route>
-
-            <Route element={<PrivateRouter />}>
-                {Object.entries(PrivateRoutes).map(([key, el]) => {
-                    return (
-                        <Route
-                            key={key}
-                            path={el.path}
-                            element={<el.component />}
-                        />
-                    );
-                })}
-
-                <Route
-                    path="*"
-                    element={<PageNotFound />}
-                />
-            </Route>
-        </Routes>
-    );
-};
-
-export default Router;
+export default router;
